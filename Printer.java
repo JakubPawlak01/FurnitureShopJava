@@ -43,7 +43,7 @@ public class Printer {
     }
         
     public int printMenuClient() {
-        List<String> clientMenu = Arrays.asList("Kup mebel", "Zwroc mebel", "3", "4", "Wyjscie");
+        List<String> clientMenu = Arrays.asList("Kup mebel", "Zwroc mebel", "Wyswietl dostepne meble", "4", "Wyjscie");
         printList(clientMenu);
         int menuNr = scanner.nextInt();
         return menuNr;

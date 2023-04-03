@@ -111,4 +111,24 @@ public class FileManager {
         }
         return -1;
     }
+
+    public void getFurniture(){
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("database.csv"));
+            String line = reader.readLine();
+            while (line != null) {
+                List<String> vector = this.split(line);
+                System.out.println("Rodzaj: " + vector.get(1));
+                System.out.println("Model: " + vector.get(2));
+                System.out.println("Kolor: " + vector.get(3));
+                System.out.println("Cena: " + vector.get(4));
+                System.out.println();
+                line = reader.readLine();
+            }
+            reader.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

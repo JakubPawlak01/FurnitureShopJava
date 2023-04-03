@@ -35,7 +35,7 @@ public void callMenu1() {
     String model = printer.getModelFromUser();
     printer.printChooseColor();
     String color = printer.getColorFromUser();
-    
+
     Furniture furniture = new Furniture(type, model, color);
     int id = fileManager.getIdFromFile(furniture);
     if (id == -1) {
@@ -63,7 +63,7 @@ public void callMenu2() {
 }
 
 public void callMenu3() {
-    printer.printCallMenu3();
+    fileManager.getFurniture();
 }
 
 public void callMenu4() {
