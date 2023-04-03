@@ -12,11 +12,35 @@ public int showMainMenu() {
 }
 
 public void callMenu1() {
+    printer.printChooseFurniture();
+
     String type = printer.getTypeFromUser();
+
+    if(type.equals("Stół")) {
+        printer.printChooseTable();
+    }
+    else if(type.equals("Krzesło")) {
+        printer.printChooseChair();
+    }
+    else if(type.equals("Łóżko")) {
+        printer.printChooseBed();
+    }
+    else if(type.equals("Szafa")) {
+        printer.printChooseWardobe();
+    }
+    else if(type.equals("Komoda")) {
+        printer.printChooseDresser();
+    }
+    else {
+        printer.printBadChoice();
+    }
+
+    String model = printer.getModelFromUser();
+
+    printer.printChooseColor();
+    String color = printer.getColorFromUser();
     int id = printer.getIdFromUser();
     int price = printer.getPriceFromUser();
-    String model = printer.getModelFromUser();
-    String color = printer.getColorFromUser();
     Furniture furniture = new Furniture(id, price, type, model, color);
     printer.printFurniture(furniture);
     fileManager.addFurniture(furniture);

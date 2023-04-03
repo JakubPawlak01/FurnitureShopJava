@@ -38,7 +38,6 @@ public class Printer {
     public int printMenuAdmin() {
         List<String> adminMenu = Arrays.asList("Utworz mebel", "Usun mebel", "3", "4", "Wyjscie");
         printList(adminMenu);
-        System.out.println();
         int menuNr = scanner.nextInt();
         return menuNr;
     }
@@ -46,7 +45,6 @@ public class Printer {
     public int printMenuClient() {
         List<String> clientMenu = Arrays.asList("Kup mebel", "Zwroc mebel", "3", "4", "Wyjscie");
         printList(clientMenu);
-        System.out.println();
         int menuNr = scanner.nextInt();
         return menuNr;
     }
@@ -78,9 +76,21 @@ public class Printer {
     }
 
     public String getTypeFromUser() {
-        System.out.println("Podaj rodzaj mebla");
-        String type = scanner.next();
-        return type;
+        int choice = scanner.nextInt();
+        switch(choice) {
+            case 1:
+                return "Stół";
+            case 2:
+                return "Krzesło";
+            case 3:
+                return "Łóżko";
+            case 4:
+                return "Szafa";
+            case 5:
+                return "Komoda";
+            default:
+                return "Błąd";
+        }
     }
 
     public int getIdFromUser() {
@@ -96,15 +106,31 @@ public class Printer {
     }
     
     public String getColorFromUser() {
-        System.out.println("Podaj kolor");
-        String color = scanner.next();
-        return color;
+        int choice = scanner.nextInt();
+        switch(choice) {
+            case 1:
+                return "Czarny";
+            case 2:
+                return "Biały";
+            case 3:
+                return "Drewno";
+            default:
+                return "Błąd";
+        }
     }
     
     public String getModelFromUser() {
-        System.out.println("Podaj model");
-        String model = scanner.next();
-        return model;
+        int choice = scanner.nextInt();
+        switch(choice) {
+            case 1:
+                return "Raz";
+            case 2:
+                return "Dwa";
+            case 3:
+                return "Trzy";
+            default:
+                return "Błąd";
+        }
     }
     
     public void printFurniture(Furniture furniture) {
@@ -134,4 +160,58 @@ public class Printer {
         System.out.println("Nie znaleziono mebla");
     }
 
+    public void printChooseFurniture(){
+        System.out.println("Jaki mebel chcesz wybrać?");
+        System.out.println("Stół - 1");
+        System.out.println("Krzeszło - 2");
+        System.out.println("Łóżko - 3");
+        System.out.println("Szafa - 4");
+        System.out.println("Komoda - 5");
+    }
+
+    public void printChooseTable(){
+        System.out.println("Wybierz model");
+        System.out.println("Pierwszy - 1");
+        System.out.println("Drugi - 2");
+        System.out.println("Trzeci - 3");
+    }
+
+    public void printChooseChair(){
+        System.out.println("Wybierz model");
+        System.out.println("Pierwszy - 1");
+        System.out.println("Drugi - 2");
+        System.out.println("Trzeci - 3");
+    }
+
+    public void printChooseBed(){
+        System.out.println("Wybierz model");
+        System.out.println("Pierwszy - 1");
+        System.out.println("Drugi - 2");
+        System.out.println("Trzeci - 3");
+    }
+
+    public void printChooseWardobe(){
+        System.out.println("Wybierz model");
+        System.out.println("Pierwszy - 1");
+        System.out.println("Drugi - 2");
+        System.out.println("Trzeci - 3");
+    }
+
+    public void printChooseDresser(){
+        System.out.println("Wybierz model");
+        System.out.println("Pierwszy - 1");
+        System.out.println("Drugi - 2");
+        System.out.println("Trzeci - 3");
+    }
+
+    public void printChooseColor(){
+        System.out.println("Wybierz kolor");
+        System.out.println("Czarny - 1");
+        System.out.println("Biały - 2");
+        System.out.println("Drewno - 3");
+    }
+
+    public void printBadChoice(){
+        System.out.println("Zły wybór");
+    }
 }
