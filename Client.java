@@ -1,10 +1,15 @@
 public class Client implements User{
 private Printer printer;
 private FileManager fileManager;
+private String username;
 
-public Client(Printer printer, FileManager fileManager) {
+public Client(Printer printer, FileManager fileManager, String username) {
     this.printer = printer;
     this.fileManager = fileManager;
+    this.username = username;
+}
+public String getUsername(){
+    return username;
 }
 
 public int showMainMenu() {
@@ -38,7 +43,7 @@ public void callMenu1() {
 
     Furniture furniture = new Furniture(type, model, color);
     int id = fileManager.getIdFromFile(furniture);
-    if (id == -1) {
+    if(id == -1) {
         printer.printFurnitureNotFound();
         return;
     }

@@ -1,27 +1,101 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class run {
     Printer printer;
     FileManager fileManager;
+    Scanner scanner;
+    private List<User> loggedInUsers;
 
     public run(){
         printer = new Printer();
         fileManager = new FileManager();
+        scanner = new Scanner(System.in);
+        loggedInUsers = new ArrayList<>();
     }
 
-    User createUser(int userNr) {
+    User createUser(int userNr,String username, String password) {
         if (userNr == 1) {
             printer.printCreateAdmin();
-            User user = new Admin(printer, fileManager);
+            User user = new Admin(printer, fileManager, username, password);
+            printer.printHelloAdmin((Admin)user);
             return user;
         } else {
             printer.printCreateClient();
-            User user = new Client(printer, fileManager);
+            User user = new Client(printer, fileManager, username);
+            printer.printHelloClient((Client) user);
             return user;
         }
     }
 
     User login() {
         printer.printHelloLogin();
-        return createUser(printer.printSelectUser());
+        int userNr = printer.printSelectUser();
+
+        if (userNr == 1) {
+            printer.printLogin();
+            String login = scanner.nextLine();
+            printer.printPassword();
+            String password = scanner.nextLine();
+
+            if (validateAdmin(login, password)) {
+                return createUser(userNr,login, password);
+            } else {
+                printer.printInvalidLogin();
+                return null;
+            }
+        } else {
+            printer.printLogin();
+            String username = scanner.nextLine();
+            User existingUser = findLoggedInUser(username);
+
+            if (existingUser != null) {
+                printer.userAlreadyLogged( (Client) existingUser);
+                return existingUser;
+            }
+        
+            User user = createUser(userNr, username, null);
+            if (user != null) {
+                loggedInUsers.add(user);
+                return user;
+            } else {
+                return null;
+            }
+    }
+}
+
+    private User findLoggedInUser(String username) {
+        for (User user : loggedInUsers) {
+            if (user instanceof Client && ((Client) user).getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public boolean logout(User user) {
+        loggedInUsers.remove(user);
+        printer.printLogout();
+        return true;
+    }
+
+    private boolean validateAdmin(String login, String password) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("admin.csv"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] adminData = line.split(",");
+                if (adminData.length == 2 && adminData[0].equals(login) && adminData[1].equals(password)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("error");
+        }
+        return false;
     }
 
     int showMainMenu(User user) {
@@ -30,6 +104,9 @@ public class run {
 
     boolean selectMenu(User user, int menuNr) {
         switch (menuNr) {
+            case 0:
+                logout(user);
+                return true;
             case 1:
                 user.callMenu1();
                 return false;
@@ -53,10 +130,22 @@ public class run {
 
     public static void main(String[] args) {
         run main = new run();
-        User user = main.login();
         boolean exit = false;
+        User user = main.login();
         while (!exit) {
-            exit = main.selectMenu(user, main.showMainMenu(user));
+            if (user != null) {
+                main.loggedInUsers.add(user);
+                int menuNr = main.showMainMenu(user);
+                if(menuNr == 0) {
+                    user = main.login();
+                }
+                exit = main.selectMenu(user, menuNr);
+                if (exit) {
+                    if(!(menuNr == 5)){
+                        exit = false;
+                    }
+                }
+            }
         }
     }
 }

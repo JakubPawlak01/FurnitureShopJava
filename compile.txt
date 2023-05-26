@@ -1,2 +1,0 @@
-javac Admin.java Client.java FileManager.java Furniture.java run.java Printer.java User.java
-java run

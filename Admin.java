@@ -1,10 +1,18 @@
 public class Admin implements User{
 private Printer printer;
 private FileManager fileManager;
+private String username;
+private String password;
 
-public Admin(Printer printer, FileManager fileManager) {
+public Admin(Printer printer, FileManager fileManager,String username, String password) {
     this.printer = printer;
     this.fileManager = fileManager;
+    this.username = username;
+    this.password = password;
+}
+
+public String getUsername() {
+    return username;
 }
 
 public int showMainMenu() {

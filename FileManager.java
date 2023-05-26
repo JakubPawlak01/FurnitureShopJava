@@ -86,7 +86,9 @@ public class FileManager {
                 line = reader.readLine();
             }
             reader.close();
-        } catch (IOException e) {
+        } 
+        
+        catch (IOException e) {
             e.printStackTrace();
         }
         return -1;

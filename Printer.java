@@ -36,14 +36,14 @@ public class Printer {
     }
     
     public int printMenuAdmin() {
-        List<String> adminMenu = Arrays.asList("Utworz mebel", "Usun mebel", "3", "4", "Wyjscie");
+        List<String> adminMenu = Arrays.asList("1-Utworz mebel", "2-Usun mebel", "3", "4", "5-Wyjscie","0-wyloguj");
         printList(adminMenu);
         int menuNr = scanner.nextInt();
         return menuNr;
     }
         
     public int printMenuClient() {
-        List<String> clientMenu = Arrays.asList("Kup mebel", "Zwroc mebel", "Wyswietl dostepne meble", "4", "Wyjscie");
+        List<String> clientMenu = Arrays.asList("1-Kup mebel", "2-Zwroc mebel", "3-Wyswietl dostepne meble", "4", "5-Wyjscie","0-wyloguj");
         printList(clientMenu);
         int menuNr = scanner.nextInt();
         return menuNr;
@@ -145,9 +145,7 @@ public class Printer {
     public boolean printFurniturePrice(Furniture furniture) {
         System.out.println("Cena twojego mebla to: " + furniture.price);
         System.out.println("Wpisz tak jesli chcesz kupic mebel");
-        Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
-        scanner.close();
         return input.equals("tak");
     }
     
@@ -213,5 +211,27 @@ public class Printer {
 
     public void printBadChoice(){
         System.out.println("Zły wybór");
+    }
+
+    public void printLogout(){
+        System.out.println("Wylogowano");
+    }
+    public void printInvalidLogin(){
+        System.out.println("Złe dane logowania!");
+    }
+    public void userAlreadyLogged(Client user){
+        System.out.println("Witamy ponownie " + user.getUsername() + "!");
+    }
+    public void printLogin(){
+        System.out.println("Podaj login: ");
+    }
+    public void printPassword(){
+        System.out.println("Podaj hasło: ");
+    }
+    public void printHelloClient(Client user){
+        System.out.println("Cześć " + user.getUsername() + "!");
+    }
+    public void printHelloAdmin(Admin admin){
+        System.out.println("Admin: "+ admin.getUsername()+ "!");
     }
 }
