@@ -133,4 +133,19 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+
+    public boolean validateAdmin(String login, String password) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("admin.csv"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] adminData = line.split(",");
+                if (adminData.length == 2 && adminData[0].equals(login) && adminData[1].equals(password)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("error");
+        }
+        return false;
+    }
 }

@@ -1,6 +1,3 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -42,13 +39,14 @@ public class run {
             printer.printPassword();
             String password = scanner.nextLine();
 
-            if (validateAdmin(login, password)) {
+            if (fileManager.validateAdmin(login, password)) {
                 return createUser(userNr,login, password);
             } else {
                 printer.printInvalidLogin();
                 return null;
             }
-        } else {
+        } 
+        else {
             printer.printLogin();
             String username = scanner.nextLine();
             User existingUser = findLoggedInUser(username);
@@ -81,21 +79,6 @@ public class run {
         loggedInUsers.remove(user);
         printer.printLogout();
         return true;
-    }
-
-    private boolean validateAdmin(String login, String password) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("admin.csv"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] adminData = line.split(",");
-                if (adminData.length == 2 && adminData[0].equals(login) && adminData[1].equals(password)) {
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("error");
-        }
-        return false;
     }
 
     int showMainMenu(User user) {
